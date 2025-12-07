@@ -43,7 +43,7 @@ jobs:
           echo "" >> report.md
          
           cat metrics.txt  >> report.md
-          echo '```' >> report.md
+         
           echo "" >> report.md
 
           echo "## 📊 Confusion Matrices" >> report.md
