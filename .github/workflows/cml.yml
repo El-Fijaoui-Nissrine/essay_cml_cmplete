@@ -1,0 +1,54 @@
+# cml.yaml
+name: CML Model Comparison RandomForest
+
+on: [push]
+
+jobs:
+  train-compare-report:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install CML
+        uses: iterative/setup-cml@v1
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Train models
+        run: |
+          python src/script.py
+
+      - name: Create CML report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "# 🏆 Rapport de Comparaison de Modèles - Exercice 3" > report.md
+          echo "" >> report.md
+
+          echo "## 🎯 Metrics" >> report.md
+          echo "" >> report.md
+          echo '```text' >> report.md
+          cml metrics send metrics.txt >> report.md
+          echo '```' >> report.md
+          echo "" >> report.md
+
+          echo "## 📊 Confusion Matrices" >> report.md
+          echo "" >> report.md
+          cml publish conf_matrix.png --md >> report.md
+          echo "" >> report.md
+
+          cml comment create report.md

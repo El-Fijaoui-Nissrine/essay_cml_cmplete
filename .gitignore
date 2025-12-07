@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+metrics.txt
+conf_matrix.png
+venv/
+
+
