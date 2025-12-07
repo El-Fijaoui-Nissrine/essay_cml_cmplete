@@ -41,7 +41,7 @@ jobs:
 
           echo "## 🎯 Metrics" >> report.md
           echo "" >> report.md
-          echo '```txt' >> report.md
+         
           cat metrics.txt  >> report.md
           echo '```' >> report.md
           echo "" >> report.md
