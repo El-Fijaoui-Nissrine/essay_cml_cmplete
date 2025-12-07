@@ -41,7 +41,7 @@ jobs:
 
           echo "## 🎯 Metrics" >> report.md
           echo "" >> report.md
-          echo '```text' >> report.md
+          echo '```txt' >> report.md
           cml metrics send metrics.txt >> report.md
           echo '```' >> report.md
           echo "" >> report.md
